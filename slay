@@ -22,7 +22,7 @@ set -e
 # fi
 
 # Get twirl
-eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/main/twirl)"
+eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
 if [ -v e_lemon_ated ]; then
 	printf "\n ./twirl found, 💃🏾 let's go!!\n"
