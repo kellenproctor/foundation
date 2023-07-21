@@ -13,6 +13,74 @@ set -e
 # TWIRL: Check for required functions file
 ###############################################################################
 
+# string formatters
+if [[ -t 1 ]]
+then
+  tty_escape() { printf "\033[%sm" "$1"; }
+else
+  tty_escape() { :; }
+fi
+tty_mkbold() { tty_escape "1;$1"; }
+tty_underline="$(tty_escape "4;39")"
+tty_blue="$(tty_mkbold 34)"
+tty_red="$(tty_mkbold 31)"
+tty_bold="$(tty_mkbold 39)"
+tty_reset="$(tty_escape 0)"
+
+getc() {
+  local save_state
+  save_state="$(/bin/stty -g)"
+  /bin/stty raw -echo
+  IFS='' read -r -n 1 -d '' "$@"
+  /bin/stty "${save_state}"
+}
+
+wait_for_user() {
+  local c
+  echo
+  echo "Press ${tty_bold}RETURN${tty_reset}/${tty_bold}ENTER${tty_reset} to continue or any other key to abort:"
+  getc c
+  # we test for \r and \n because some stuff does \r instead
+  if ! [[ "${c}" == $'\r' || "${c}" == $'\n' ]]
+  then
+    exit 1
+  fi
+}
+
+PunnyEcho ()
+{
+	sleep 0.4
+	if [ -z ${1+x} ]; then
+		printf "$3\n\n"
+		printf "$4\n"
+		wait_for_user
+	else
+		printf "$2\n"
+	fi	
+}
+
+
+# Get arrays
+APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
+printf "Apps... "
+PunnyEcho "served!" "still in the freezer." "Ok to move ahead without apps?"
+
+BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
+# Brews... foamy : skunked (Ok to move ahead without brews?)
+
+CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
+# Casks... tapped : not yet delivered (OK to move ahead without casks?)
+
+if [ -z ${BREWS+x} ]; then
+	echo Something wrong with BREWS
+	echo "$BREWS"
+else
+	for i in $BREWS; do
+		echo $i
+	done
+	echo All good!
+fi
+
 # Get twirl
 eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
@@ -25,19 +93,6 @@ else
 	exit 1
 fi
 
-APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-
-if [ -z ${BREWS+x} ]; then
-	echo Something wrong with BREWS
-	echo "$BREWS"
-else
-	for i in $BREWS; do
-		echo $i
-	done
-	echo All good!
-fi
 
 ###############################################################################
 # CHECK: Bash version
