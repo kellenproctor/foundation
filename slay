@@ -72,7 +72,7 @@ PunnyCheck ()
 
 
 # Get arrays
-APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
+APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/apps)
 printf " Apps"
 PunnyCheck APPS "served!" "still in the freezer." "Ok to move ahead without apps?"
 
@@ -80,7 +80,7 @@ BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/mast
 printf  " Brews"
 PunnyCheck BREWS "foamy!" "skunked" "Ok to move ahead without brews?"
 
-CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
+CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/casks)
 printf " Casks"
 PunnyCheck CASKS "tapped!" "not yet delivered" "OK to move ahead without casks?"
 
