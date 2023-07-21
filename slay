@@ -24,11 +24,12 @@ set -e
 # Get twirl
 eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
-if [ -v e_lemon_ated ]; then
-	printf "\n ./twirl found, 💃🏾 let's go!!\n"
+if [ -v $e_lemon_ated ]; then
+	printf "\n Get ready for...\n"
+	sleep 0.5
 else
 	printf "\n ⚠️  ./twirl not found  💃🏾 First, you need to twirl on your haters\n"
-	printf "\n Required functions file missing, please edit the script to get twirl\n"
+	printf " Required functions file missing, please edit the script to get twirl\n"
 	exit 1
 fi
 
