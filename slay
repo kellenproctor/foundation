@@ -24,7 +24,7 @@ set -e
 # Get twirl
 eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
-if [[ -v $e_lemon_ated ]]; then
+if [ -v $e_lemon_ated ]; then
 	printf "\n Get ready for...\n"
 	sleep 0.5
 else
