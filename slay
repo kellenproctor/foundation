@@ -13,14 +13,6 @@ set -e
 # TWIRL: Check for required functions file
 ###############################################################################
 
-# if [ -e twirl ]; then
-# 	cd "$(dirname "${BASH_SOURCE[0]}")" \
-# 		&& . "twirl"
-# else
-# 	printf "\n ⚠️  ./twirl not found  💃🏾 First, you need to twirl on your haters\n"
-# 	exit 1
-# fi
-
 # Get twirl
 eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
@@ -33,14 +25,18 @@ else
 	exit 1
 fi
 
+APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
 BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
+CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
 
-if [[ -v $BREWS ]]; then
+if [ -z ${BREWS+x} ]; then
+	echo Something wrong with BREWS
+	echo "$BREWS"
+else
 	for i in $BREWS; do
 		echo $i
 	done
-else
-	echo something wrong with BREWS: $BREWS
+	echo All good!
 fi
 
 ###############################################################################
