@@ -47,9 +47,20 @@ wait_for_user() {
   fi
 }
 
+DramaticEllipsis ()
+{
+	sleep 0.2
+	printf "."
+	sleep 0.2
+	printf "."
+	sleep 0.2
+	printf ". "
+	sleep 0.2
+}
+
 PunnyCheck ()
 {
-	sleep 0.4
+	DramaticEllipsis
 	if [ -z ${1+x} ]; then
 		printf "$3\n\n"
 		printf "$4\n"
@@ -59,17 +70,18 @@ PunnyCheck ()
 	fi	
 }
 
+
 # Get arrays
 APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-printf "Apps... "
+printf " Apps"
 PunnyCheck $APPS "served!" "still in the freezer." "Ok to move ahead without apps?"
 
 BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-printf  "Brews... "
+printf  " Brews"
 PunnyCheck $BREWS "foamy!" "skunked" "Ok to move ahead without brews?"
 
 CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-printf "Casks... "
+printf " Casks"
 PunnyCheck $CASKS "tapped!" "not yet delivered" "OK to move ahead without casks?"
 
 # Get twirl
