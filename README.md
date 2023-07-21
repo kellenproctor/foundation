@@ -1,4 +1,4 @@
-# 🐝 Formation <a href="https://www.patreon.com/minamarkham"><img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="100"></a>
+# 🐝 Foundation, gleefully forked from Mina Markham's [formation](https://github.com/minamarkham/formation)
 
 ![Let's get in formation](assets/formation.gif)
 > Formation is a shell script to set up a macOS laptop for design and development.
