@@ -24,13 +24,23 @@ set -e
 # Get twirl
 eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
-if [ -v $e_lemon_ated ]; then
+if [[ -v $e_lemon_ated ]]; then
 	printf "\n Get ready for...\n"
 	sleep 0.5
 else
 	printf "\n ⚠️  ./twirl not found  💃🏾 First, you need to twirl on your haters\n"
 	printf " Required functions file missing, please edit the script to get twirl\n"
 	exit 1
+fi
+
+BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
+
+if [[ -v $BREWS ]]; then
+	for i in $BREWS; do
+		echo $i
+	done
+else
+	echo something wrong with BREWS: $BREWS
 fi
 
 ###############################################################################
@@ -134,7 +144,8 @@ fi
 # -----------------------------------------------------------------------------
 if ! [ -x "$(command -v brew)" ]; then
 	step "Installing Homebrew…"
-	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	NONINTERACTIVE=1 /bin/bash -c \
+	"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	# Need to change this depending on ARM or Linux !!!!!!!
 	# export PATH="/usr/local/bin:$PATH" # Old Linux
 	export PATH="/opt/homebrew/bin:$PATH"
