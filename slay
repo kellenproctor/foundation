@@ -47,7 +47,7 @@ wait_for_user() {
   fi
 }
 
-PunnyEcho ()
+PunnyCheck ()
 {
 	sleep 0.4
 	if [ -z ${1+x} ]; then
@@ -59,27 +59,18 @@ PunnyEcho ()
 	fi	
 }
 
-
 # Get arrays
 APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
 printf "Apps... "
-PunnyEcho "served!" "still in the freezer." "Ok to move ahead without apps?"
+PunnyCheck $APPS "served!" "still in the freezer." "Ok to move ahead without apps?"
 
 BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-# Brews... foamy : skunked (Ok to move ahead without brews?)
+printf  "Brews... "
+PunnyCheck $BREWS "foamy!" "skunked" "Ok to move ahead without brews?"
 
 CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-# Casks... tapped : not yet delivered (OK to move ahead without casks?)
-
-if [ -z ${BREWS+x} ]; then
-	echo Something wrong with BREWS
-	echo "$BREWS"
-else
-	for i in $BREWS; do
-		echo $i
-	done
-	echo All good!
-fi
+printf "Casks... "
+PunnyCheck $CASKS "tapped!" "not yet delivered" "OK to move ahead without casks?"
 
 # Get twirl
 eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
