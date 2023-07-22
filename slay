@@ -237,10 +237,10 @@ fi
 ###############################################################################
 # INSTALL: brews
 ###############################################################################
-if [ -e $cwd/swag/brews ]; then
+if [ -z "${BREWS}" ]; then
 	chapter "Installing Homebrew formulae…"
 
-	for brew in $(<$cwd/swag/brews); do
+	for brew in $(BREWS); do
 		install_brews $brew
 	done
 fi
@@ -254,39 +254,33 @@ brew update
 ###############################################################################
 # INSTALL: casks
 ###############################################################################
-if [ -e $cwd/swag/casks ]; then
-	chapter "Installing apps via Homebrew…"
+chapter "Installing apps via Homebrew…"
 
-	for cask in $(<$cwd/swag/casks); do
-	    install_application_via_brew $cask
-	done
-fi
+for cask in ${CASKS}; do
+	install_application_via_brew $cask
+done
 
 ###############################################################################
 # INSTALL: Mac App Store Apps
 ###############################################################################
 chapter "Installing apps from App Store…"
 if [ -x mas ]; then
-
 	print_warning "Please install mas-cli first: brew mas. Skipping."
-
-	else
-
-	if [ -e $cwd/swag/apps ]; then
-		if mas_setup; then
-			# Workaround for associative array in Bash 3
-			# https://stackoverflow.com/questions/6047648/bash-4-associative-arrays-error-declare-a-invalid-option
-			for app in $(<$cwd/swag/apps); do
-				KEY="${app%%::*}"
-				VALUE="${app##*::}"
-				install_application_via_app_store $KEY $VALUE
-			done
-		else
-			print_warning "Please signin to App Store first. Skipping."
-		fi
-	fi
-
 fi
+
+
+if mas_setup; then
+	# Workaround for associative array in Bash 3
+	# https://stackoverflow.com/questions/6047648/bash-4-associative-arrays-error-declare-a-invalid-option
+	for app in ${APPS}; do
+		KEY="${app%%::*}"
+		VALUE="${app##*::}"
+		install_application_via_app_store $KEY $VALUE
+	done
+else
+	print_warning "Please signin to App Store first. Skipping."
+fi
+
 
 ###############################################################################
 # CLEAN: Homebrew files
@@ -297,15 +291,20 @@ brew cleanup 2> /dev/null
 ###############################################################################
 # INSTALL: npm packages
 ###############################################################################
-if [ -e $cwd/swag/npm ]; then
-	chapter "Installing npm packages…"
+# if [ -e $cwd/swag/npm ]; then
+# 	chapter "Installing npm packages…"
 
-	for pkg in $(<$cwd/swag/npm); do
-		KEY="${pkg%%::*}"
-		VALUE="${pkg##*::}"
-		install_npm_packages $KEY $VALUE
-	done
-fi
+# 	for pkg in $(<$cwd/swag/npm); do
+# 		KEY="${pkg%%::*}"
+# 		VALUE="${pkg##*::}"
+# 		install_npm_packages $KEY $VALUE
+# 	done
+# fi
+
+###############################################################################
+# INSTALL: Chezmoi Dotfiles
+###############################################################################
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --one-shot kellenproctor
 
 
 ###############################################################################
@@ -321,6 +320,7 @@ if [ -f "$HOME/.hot-sauce" ]; then
 else
 	print_warning "No ~/.hot-sauce found. Skipping."
 fi
+
 
 ###############################################################################
 # 🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋🍋
