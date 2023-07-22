@@ -58,11 +58,11 @@ DramaticEllipsis ()
 	sleep 0.5
 }
 
-DramaticTyping()
+DramaticTyping ()
 {
 	for (( i=0; i<${#1}; i++ )); do
 		printf ${1:$i:1}
-		sleep 0.1
+		sleep 0.2
 	done
 }
 
@@ -80,15 +80,18 @@ PunnyCheck ()
 
 # Get arrays
 APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/apps)
-DramaticTyping " Apps..."
+printf " "
+DramaticTyping "Apps..."
 PunnyCheck APPS "HOT AND FRESH!" "still in the freezer." "Ok to move ahead without apps?"
 
 BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
-DramaticTyping  " Brews..."
+printf " "
+DramaticTyping "Brews..."
 PunnyCheck BREWS "COLD AND FOAMY!" "skunked" "Ok to move ahead without brews?"
 
 CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/casks)
-DramaticTyping " Casks..."
+printf " "
+DramaticTyping "Casks..."
 PunnyCheck CASKS "TAPPED AND FLOWING!" "not yet delivered" "OK to move ahead without casks?"
 
 # Get twirl
