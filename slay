@@ -62,13 +62,13 @@ DramaticTyping ()
 {
 	for (( i=0; i<${#1}; i++ )); do
 		printf ${1:$i:1}
-		sleep 0.2
+		sleep $2
 	done
 }
 
 PunnyCheck ()
 {
-	if [ -z ${!1} ]; then
+	if [ -z "${!1}" ]; then
 		printf "$3\n\n"
 		printf "$4\n"
 		wait_for_user
@@ -81,24 +81,26 @@ PunnyCheck ()
 # Get arrays
 APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/apps)
 printf " "
-DramaticTyping "Apps..."
+DramaticTyping "Apps..." 0.2
 PunnyCheck APPS "HOT AND FRESH!" "still in the freezer." "Ok to move ahead without apps?"
 
 BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
 printf " "
-DramaticTyping "Brews..."
+DramaticTyping "Brews..." 0.2
 PunnyCheck BREWS "COLD AND FOAMY!" "skunked" "Ok to move ahead without brews?"
 
 CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/casks)
 printf " "
-DramaticTyping "Casks..."
+DramaticTyping "Casks..." 0.2
 PunnyCheck CASKS "TAPPED AND FLOWING!" "not yet delivered" "OK to move ahead without casks?"
 
 # Get twirl
 eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
 if [ -v $e_lemon_ated ]; then
-	DramaticTyping "\n Get ready for...\n"
+	printf "\n "
+	DramaticTyping "Get ready for..." 0.3
+	echo
 	sleep 0.5
 else
 	printf "\n ⚠️  ./twirl not found  💃🏾 First, you need to twirl on your haters\n"
