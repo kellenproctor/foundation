@@ -139,36 +139,35 @@ printf "
    ${dim}$(get_os) $(get_os_version) ${normal} // ${dim}$BASH ${normal} // ${dim}$BASH_VERSION${reset}
 "
 
-sleep 0.3
+sleep 0.2
 
 
 ###############################################################################
 # CHECK: Internet
 ###############################################################################
-DramaticTyping "$(chapter "Checking internet connection…")"
-sleep 0.2
+DramaticTyping "$(chapter 'Checking internet connection…')" 0.05
+sleep 0.1
 check_internet_connection
-sleep 0.2
 
 ###############################################################################
 # PROMPT: Password
 ###############################################################################
-chapter "Caching password…"
-sleep 0.2
+DramaticTyping "$(chapter 'Caching password…')" 0.05
+sleep 0.1
 ask_for_sudo
 
 ###############################################################################
 # PROMPT: SSH Key
 ###############################################################################
-chapter 'Checking for SSH key…'
-sleep 0.2
+DramaticTyping "$(chapter 'Checking for SSH key…')" 0.05
+sleep 0.1
 ssh_key_setup
 
 ###############################################################################
 # INSTALL: Dependencies
 ###############################################################################
-chapter "Installing Dependencies…"
-sleep 0.2
+DramaticTyping "$(chapter 'Installing Dependencies…')" 0.05
+sleep 0.1
 
 # -----------------------------------------------------------------------------
 # XCode
@@ -240,7 +239,7 @@ fi
 # INSTALL: brews
 ###############################################################################
 if [ -z "${BREWS}" ]; then
-	chapter "Installing Homebrew formulae…"
+	DramaticTyping "$(chapter 'Installing Homebrew formulae…')" 0.05
 
 	for brew in $(BREWS); do
 		install_brews $brew
