@@ -79,7 +79,6 @@ PunnyCheck ()
 		printf "$2\n"
 	fi	
 }
-DramaticTyping "The world is a vampire..." 0.1
 
 
 # Get arrays
@@ -144,7 +143,7 @@ sleep 0.3
 ###############################################################################
 # CHECK: Internet
 ###############################################################################
-DramaticTyping $(chapter "Checking internet connection…")
+DramaticTyping "$(chapter "Checking internet connection…")"
 sleep 0.2
 check_internet_connection
 sleep 0.2
