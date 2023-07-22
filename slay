@@ -246,8 +246,7 @@ brew update -v
 # INSTALL: brews
 ###############################################################################
 if [ -z "${BREWS}" ]; then
-	DramaticTyping "$(chapter 'Installing Homebrew formulae…')" 0.05
-	echo
+	chapter "Installing Homebrew formulae…"
 
 	for brew in $(BREWS); do
 		install_brews $brew
