@@ -61,7 +61,7 @@ DramaticEllipsis ()
 PunnyCheck ()
 {
 	DramaticEllipsis
-	if [ -z ${1+x} ]; then
+	if [ -z ${!1} ]; then
 		printf "$3\n\n"
 		printf "$4\n"
 		wait_for_user
@@ -95,6 +95,18 @@ else
 	printf " Required functions file missing, please edit the script to get twirl\n"
 	exit 1
 fi
+
+DramaticTyping()
+{
+	for i in $1; do
+		printf $i
+		sleep 0.2
+	done
+}
+
+echo
+DramaticTyping "The world is a vampire"
+echo
 
 exit
 
