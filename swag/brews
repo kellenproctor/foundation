@@ -2,6 +2,7 @@ bash
 coreutils
 exa
 git
+gh
 less
 mas
 openssl@3
