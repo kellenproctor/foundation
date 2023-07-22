@@ -7,6 +7,7 @@ vivaldi
 docker
 dropbox
 onedrive
+google-drive
 alacritty
 kitty
 spotify
@@ -14,4 +15,6 @@ visual-studio-code
 microsoft-word
 microsoft-excel
 microsoft-powerpoint
+signal
+telegram
 zoom
