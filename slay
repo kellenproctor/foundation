@@ -145,24 +145,21 @@ sleep 0.2
 ###############################################################################
 # CHECK: Internet
 ###############################################################################
-DramaticTyping "$(chapter 'Checking internet connection…')" 0.05
-echo
+chapter "Checking internet connection…"
 sleep 0.1
 check_internet_connection
 
 ###############################################################################
 # PROMPT: Password
 ###############################################################################
-DramaticTyping "$(chapter 'Caching password…')" 0.05
-echo
+chapter "Caching password…"
 sleep 0.1
 ask_for_sudo
 
 ###############################################################################
 # PROMPT: SSH Key
 ###############################################################################
-DramaticTyping "$(chapter 'Checking for SSH key…')" 0.05
-echo
+chapter "Checking for SSH key…"
 sleep 0.1
 ssh_key_setup
 

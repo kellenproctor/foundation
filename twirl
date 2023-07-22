@@ -529,7 +529,7 @@ create_ssh_key() {
 ssh_key_setup() {
     local name="github"
     local pub=$HOME/.ssh/${name}.pub
-    mkdir ~/.ssh
+    mkd ~/.ssh
     cd ~/.ssh
 
     if ! [[ -f $pub ]]; then
