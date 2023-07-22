@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+
 SETUP_ROOT=$HOME/.setup
+
 NERDFONTS_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/ryanoasis/nerd-fonts/releases/latest)
 NERDFONTS_VERSION=$(get_github_version $NERDFONTS_RELEASE)
+
 DIRECTORIES=(
     $HOME/Desktop/code
     $HOME/Desktop/design
@@ -10,6 +13,7 @@ DIRECTORIES=(
     $HOME/Desktop/projects
     $HOME/Desktop/screenshots
 )
+
 NERDFONTS=(
     CascadiaCode
     FiraCode
@@ -18,10 +22,12 @@ NERDFONTS=(
     AnonymousPro
     Inconsolata
 )
+
 step "Making directories…"
 for dir in ${DIRECTORIES[@]}; do
     mkd $dir
 done
+
 step "Installing fonts…"
 for font in ${NERDFONTS[@]}; do
     if [ ! -d ~/Library/Fonts/$font ]; then
