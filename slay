@@ -166,14 +166,13 @@ ssh_key_setup
 ###############################################################################
 # INSTALL: Dependencies
 ###############################################################################
-DramaticTyping "$(chapter 'Installing Dependencies…')" 0.05
-echo
+chapter "Installing Dependencies…"
 sleep 0.1
 
 # -----------------------------------------------------------------------------
 # XCode
 # -----------------------------------------------------------------------------
-if type xcode-select >&- && xpath=$( xcode-select --print-path ) &&
+if type xcode-select &>- && xpath=$( xcode-select --print-path ) &&
 	test -d "${xpath}" && test -x "${xpath}" ; then
 	print_success_muted "Xcode already installed. Skipping."
 else
