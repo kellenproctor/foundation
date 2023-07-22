@@ -60,10 +60,13 @@ DramaticEllipsis ()
 
 DramaticTyping ()
 {
+	local OLD_IFS="$IFS"
+	IFS=
 	for (( i=0; i<${#1}; i++ )); do
 		printf ${1:$i:1}
 		sleep $2
 	done
+	IFS="$OLD_IFS"
 }
 
 PunnyCheck ()
@@ -76,22 +79,23 @@ PunnyCheck ()
 		printf "$2\n"
 	fi	
 }
+DramaticTyping "The world is a vampire..." 0.1
 
 
 # Get arrays
 APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/apps)
 printf " "
-DramaticTyping "Apps..." 0.2
+DramaticTyping "Apps..." 0.1
 PunnyCheck APPS "HOT AND FRESH!" "still in the freezer." "Ok to move ahead without apps?"
 
 BREWS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/brews)
 printf " "
-DramaticTyping "Brews..." 0.2
+DramaticTyping "Brews..." 0.1
 PunnyCheck BREWS "COLD AND FOAMY!" "skunked" "Ok to move ahead without brews?"
 
 CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/casks)
 printf " "
-DramaticTyping "Casks..." 0.2
+DramaticTyping "Casks..." 0.1
 PunnyCheck CASKS "TAPPED AND FLOWING!" "not yet delivered" "OK to move ahead without casks?"
 
 # Get twirl
@@ -99,7 +103,7 @@ eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/maste
 
 if [ -v $e_lemon_ated ]; then
 	printf "\n "
-	DramaticTyping "Get ready for..." 0.3
+	DramaticTyping "Get ready for..." 0.1
 	echo
 	sleep 0.5
 else
@@ -135,17 +139,21 @@ printf "
 ╰───────────────────────────────────────────────────╯
    ${dim}$(get_os) $(get_os_version) ${normal} // ${dim}$BASH ${normal} // ${dim}$BASH_VERSION${reset}
 "
+sleep 0.3
 
 ###############################################################################
 # CHECK: Internet
 ###############################################################################
 chapter "Checking internet connection…"
+sleep 0.2
 check_internet_connection
+sleep 0.2
 
 ###############################################################################
 # PROMPT: Password
 ###############################################################################
 chapter "Caching password…"
+sleep 0.2
 ask_for_sudo
 
 ###############################################################################
