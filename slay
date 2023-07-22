@@ -240,7 +240,7 @@ fi
 # UPDATE: Homebrew
 ###############################################################################
 chapter "Updating Homebrew formulae…"
-brew update -v
+brew update -fv
 
 ###############################################################################
 # INSTALL: brews
