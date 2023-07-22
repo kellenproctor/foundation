@@ -513,7 +513,7 @@ github_key_check() {
 create_ssh_key() {
 	if ask "No SSH key found. Create one?" Y; then
         # Generate key
-		ssh-keygen -t ed25519 -C "${name}" -f ~/.ssh/${name}
+		ssh-keygen -t ed25519 -C "${name}" -f /Users/atlantis/.ssh/${name}
         # Check key
         ssh-keygen -y -f github
         # Add to apple
