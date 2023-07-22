@@ -32,7 +32,9 @@ step "Installing fonts…"
 for font in ${NERDFONTS[@]}; do
     if [ ! -d ~/Library/Fonts/$font ]; then
         printf "${indent}  [↓] $font "
-        wget -P ~/Library/Fonts https://github.com/ryanoasis/nerd-fonts/releases/download/$NERDFONTS_VERSION/$font.zip --quiet;unzip -q ~/Library/Fonts/$font -d ~/Library/Fonts/$font
+        wget -P ~/Library/Fonts https://github.com/ryanoasis/nerd-fonts/releases/download/$NERDFONTS_VERSION/$font.zip --quiet
+        unzip -q ~/Library/Fonts/$font -d ~/Library/Fonts/$font
+        rm ~/Library/Fonts/$font
         print_in_green "${bold}✓ done!${normal}\n"
     else
         print_muted "${indent}✓ $font already installed. Skipped."
