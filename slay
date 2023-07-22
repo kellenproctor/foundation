@@ -115,7 +115,7 @@ fi
 # CHECK: Bash version
 ###############################################################################
 
-check_bash_version -v
+check_bash_version
 
 ###############################################################################
 # Get in Formation!          http://patorjk.com/software/taag/ ( font: Script )
@@ -240,7 +240,7 @@ fi
 # UPDATE: Homebrew
 ###############################################################################
 chapter "Updating Homebrew formulae…"
-brew update
+brew update -v
 
 ###############################################################################
 # INSTALL: brews
