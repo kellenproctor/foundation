@@ -1,4 +1,9 @@
+bash
+openssl@3
+exa
+coreutils
 git
 mas
 wget
 yarn
+zsh
