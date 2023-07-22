@@ -144,7 +144,7 @@ sleep 0.3
 ###############################################################################
 # CHECK: Internet
 ###############################################################################
-chapter "Checking internet connection…"
+DramaticTyping $(chapter "Checking internet connection…")
 sleep 0.2
 check_internet_connection
 sleep 0.2
@@ -160,12 +160,14 @@ ask_for_sudo
 # PROMPT: SSH Key
 ###############################################################################
 chapter 'Checking for SSH key…'
+sleep 0.2
 ssh_key_setup
 
 ###############################################################################
 # INSTALL: Dependencies
 ###############################################################################
 chapter "Installing Dependencies…"
+sleep 0.2
 
 # -----------------------------------------------------------------------------
 # XCode
