@@ -497,6 +497,7 @@ copy_key_github() {
     inform 'Public key copied! Paste into Github…'
     [[ -f $pub ]] && cat $pub | pbcopy
     open 'https://github.com/account/ssh'
+    sleep 0.5
     read -p "   ✦  Press enter to continue…"
     print_success "SSH key"
     return
