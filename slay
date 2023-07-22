@@ -257,7 +257,6 @@ fi
 # INSTALL: casks
 ###############################################################################
 chapter "Installing apps via Homebrew…"
-brew install homebrew/cask
 
 for cask in ${CASKS}; do
 	install_application_via_brew $cask
