@@ -517,6 +517,7 @@ create_ssh_key() {
         # Check key
         ssh-keygen -y -f github
         # Add to apple
+        eval "$(ssh-agent -s)"
         ssh-add --apple-use-keychain ~/.ssh/github
         # Add to github
         github_key_check;
