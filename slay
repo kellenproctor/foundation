@@ -241,7 +241,7 @@ fi
 ###############################################################################
 chapter "Updating Homebrew formulae…"
 brew update -fv
-brew bundle install -v
+( brew bundle install -v )
 exit_code=$?
 if [ $exit_code -ne 0]; then
 	print_warning "Skipping forward"
