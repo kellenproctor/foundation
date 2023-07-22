@@ -1,9 +1,15 @@
 bash
-openssl@3
-exa
 coreutils
+exa
 git
+less
 mas
+openssl@3
+vim
+neovim
+tmux
 wget
 yarn
 zsh
+zsh-completions
+zsh-syntax-highlighting
