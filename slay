@@ -115,7 +115,7 @@ fi
 # CHECK: Bash version
 ###############################################################################
 
-check_bash_version
+check_bash_version -v
 
 ###############################################################################
 # Get in Formation!          http://patorjk.com/software/taag/ ( font: Script )
