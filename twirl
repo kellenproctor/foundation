@@ -1,5 +1,77 @@
 #!/usr/bin/env bash
 
+
+###############################################################################
+# Additions
+###############################################################################
+
+# string formatters
+if [[ -t 1 ]]
+then
+  tty_escape() { printf "\033[%sm" "$1"; }
+else
+  tty_escape() { :; }
+fi
+tty_mkbold() { tty_escape "1;$1"; }
+tty_underline="$(tty_escape "4;39")"
+tty_blue="$(tty_mkbold 34)"
+tty_red="$(tty_mkbold 31)"
+tty_bold="$(tty_mkbold 39)"
+tty_reset="$(tty_escape 0)"
+
+getc() {
+  local save_state
+  save_state="$(/bin/stty -g)"
+  /bin/stty raw -echo
+  IFS='' read -r -n 1 -d '' "$@"
+  /bin/stty "${save_state}"
+}
+
+wait_for_user() {
+  local c
+  echo
+  echo "Press ${tty_bold}RETURN${tty_reset}/${tty_bold}ENTER${tty_reset} to continue or any other key to abort:"
+  getc c
+  # we test for \r and \n because some stuff does \r instead
+  if ! [[ "${c}" == $'\r' || "${c}" == $'\n' ]]
+  then
+    exit 1
+  fi
+}
+
+DramaticEllipsis ()
+{
+	sleep 0.3
+	printf "."
+	sleep 0.3
+	printf "."
+	sleep 0.3
+	printf ". "
+	sleep 0.5
+}
+
+DramaticTyping ()
+{
+	local OLD_IFS="$IFS"
+	IFS=
+	for (( i=0; i<${#1}; i++ )); do
+		printf ${1:$i:1}
+		sleep $2
+	done
+	IFS="$OLD_IFS"
+}
+
+PunnyCheck ()
+{
+	if [ -z "${!1}" ]; then
+		printf "$3\n\n"
+		printf "$4\n"
+		wait_for_user
+	else
+		printf "$2\n"
+	fi	
+}
+
 ###############################################################################
 # VARIABLES
 ###############################################################################
