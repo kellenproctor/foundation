@@ -10,76 +10,63 @@ trap 'ret=$?; cmd=!0; test $ret -ne 0 && printf "\n   \e[31m\033[0m  Foundati
 set -e
 
 ###############################################################################
-# TWIRL: Check for required functions file
+# Apps, Brews, and Casks
 ###############################################################################
 
-# string formatters
-if [[ -t 1 ]]
-then
-  tty_escape() { printf "\033[%sm" "$1"; }
-else
-  tty_escape() { :; }
-fi
-tty_mkbold() { tty_escape "1;$1"; }
-tty_underline="$(tty_escape "4;39")"
-tty_blue="$(tty_mkbold 34)"
-tty_red="$(tty_mkbold 31)"
-tty_bold="$(tty_mkbold 39)"
-tty_reset="$(tty_escape 0)"
+APPS=(
+	1147396723::WhatsApp
+)
 
-getc() {
-  local save_state
-  save_state="$(/bin/stty -g)"
-  /bin/stty raw -echo
-  IFS='' read -r -n 1 -d '' "$@"
-  /bin/stty "${save_state}"
-}
+BREWS=(
+	bash
+	coreutils
+	bat
+	exa
+	git
+	gh
+	fzf
+	less
+	mas
+	openssl@3
+	tldr
+	vim
+	neovim
+	tmux
+	wget
+	yarn
+	fish
+	zsh
+	zsh-completions
+	zsh-syntax-highlighting
+	starship
+)
 
-wait_for_user() {
-  local c
-  echo
-  echo "Press ${tty_bold}RETURN${tty_reset}/${tty_bold}ENTER${tty_reset} to continue or any other key to abort:"
-  getc c
-  # we test for \r and \n because some stuff does \r instead
-  if ! [[ "${c}" == $'\r' || "${c}" == $'\n' ]]
-  then
-    exit 1
-  fi
-}
+CASKS=(
+	arc
+	brave-browser
+	firefox
+	google-chrome
+	microsoft-edge
+	vivaldi
+	docker
+	dropbox
+	onedrive
+	google-drive
+	alacritty
+	kitty
+	spotify
+	visual-studio-code
+	microsoft-word
+	microsoft-excel
+	microsoft-powerpoint
+	signal
+	telegram
+	zoom
+)
 
-DramaticEllipsis ()
-{
-	sleep 0.3
-	printf "."
-	sleep 0.3
-	printf "."
-	sleep 0.3
-	printf ". "
-	sleep 0.5
-}
-
-DramaticTyping ()
-{
-	local OLD_IFS="$IFS"
-	IFS=
-	for (( i=0; i<${#1}; i++ )); do
-		printf ${1:$i:1}
-		sleep $2
-	done
-	IFS="$OLD_IFS"
-}
-
-PunnyCheck ()
-{
-	if [ -z "${!1}" ]; then
-		printf "$3\n\n"
-		printf "$4\n"
-		wait_for_user
-	else
-		printf "$2\n"
-	fi	
-}
-
+###############################################################################
+# TWIRL: Check for required functions file
+###############################################################################
 
 # Get arrays
 APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/apps)
@@ -100,11 +87,11 @@ PunnyCheck CASKS "TAPPED AND FLOWING!" "not yet delivered" "OK to move ahead wit
 # Get twirl
 eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
-if [ -v $e_lemon_ated ]; then
+if [ -v "$e_lemon_ated" ]; then
 	printf "\n "
 	DramaticTyping "Get ready for..." 0.1
 	echo
-	sleep 0.5
+	sleep 0.2
 else
 	printf "\n ⚠️  ./twirl not found  💃🏾 First, you need to twirl on your haters\n"
 	printf " Required functions file missing, please edit the script to get twirl\n"
@@ -146,28 +133,24 @@ sleep 0.2
 # CHECK: Internet
 ###############################################################################
 chapter "Checking internet connection…"
-sleep 0.1
 check_internet_connection
 
 ###############################################################################
 # PROMPT: Password
 ###############################################################################
 chapter "Caching password…"
-sleep 0.1
 ask_for_sudo
 
 ###############################################################################
 # PROMPT: SSH Key
 ###############################################################################
 chapter "Checking for SSH key…"
-sleep 0.1
 ssh_key_setup
 
 ###############################################################################
 # INSTALL: Dependencies
 ###############################################################################
 chapter "Installing Dependencies…"
-sleep 0.1
 
 # -----------------------------------------------------------------------------
 # XCode
@@ -188,21 +171,21 @@ fi
 # -----------------------------------------------------------------------------
 # Bash-it
 # -----------------------------------------------------------------------------
-if [ -d "$HOME/.bash_it" ]; then
-	print_success_muted "Bash-it already installed. Skipping."
-else
-	step "Installing Bash-it…"
-	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-	~/.bash_it/install.sh --silent --no-modify-config
-	print_success "Bash-it installed!"
-fi
+# if [ -d "$HOME/.bash_it" ]; then
+# 	print_success_muted "Bash-it already installed. Skipping."
+# else
+# 	step "Installing Bash-it…"
+# 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+# 	~/.bash_it/install.sh --silent --no-modify-config
+# 	print_success "Bash-it installed!"
+# fi
 
 # -----------------------------------------------------------------------------
 # NVM
 # -----------------------------------------------------------------------------
 if [ -x nvm ]; then
 	step "Installing NVM…"
-	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 	print_success "NVM installed!"
 	step "Installing latest Node…"
 	nvm install node
@@ -243,7 +226,7 @@ chapter "Updating Homebrew formulae…"
 brew update -fv
 brew bundle install -v 2>&1
 exit_code=$?
-if [ $exit_code -ne 0]; then
+if [ $exit_code -ne 0 ]; then
 	print_warning "Skipping forward"
 fi
 
@@ -318,7 +301,45 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --one-shot kellenproctor
 # OPTIONAL: Customizations
 ###############################################################################
 chapter "Adding hot sauce…"
-HOTSAUCE="$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/hot-sauce)"
+
+NERDFONTS_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/ryanoasis/nerd-fonts/releases/latest)
+NERDFONTS_VERSION=$(get_github_version $NERDFONTS_RELEASE)
+
+DIRECTORIES=(
+    $HOME/Desktop/code
+    $HOME/Desktop/design
+    $HOME/Desktop/*dump
+    $HOME/Desktop/GIFs
+    $HOME/Desktop/projects
+    $HOME/Desktop/screenshots
+)
+
+NERDFONTS=(
+    CascadiaCode
+    FiraCode
+    SpaceMono
+    Hack
+    AnonymousPro
+    Inconsolata
+)
+
+step "Making directories…"
+for dir in ${DIRECTORIES[@]}; do
+    mkd $dir
+done
+
+step "Installing fonts…"
+for font in ${NERDFONTS[@]}; do
+    if [ ! -d ~/Library/Fonts/$font ]; then
+        printf "${indent}  [↓] $font "
+        wget -P ~/Library/Fonts https://github.com/ryanoasis/nerd-fonts/releases/download/$NERDFONTS_VERSION/$font.zip --quiet
+        unzip -q ~/Library/Fonts/$font -d ~/Library/Fonts/$font
+        rm ~/Library/Fonts/$font
+        print_in_green "${bold}✓ done!${normal}\n"
+    else
+        print_muted "${indent}✓ $font already installed. Skipped."
+    fi
+done
 
 if [ -n $HOTSAUCE ]; then
 	if ask "Do you want to add hot sauce?" Y; then
