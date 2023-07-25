@@ -19,7 +19,6 @@ APPS=(
 
 BREWS=(
 	bash
-	coreutils
 	bat
 	exa
 	git
@@ -68,6 +67,9 @@ CASKS=(
 # TWIRL: Check for required functions file
 ###############################################################################
 
+# Get twirl
+eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
+
 # Get arrays
 APPS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/master/swag/apps)
 printf " "
@@ -83,9 +85,6 @@ CASKS=$(curl -fs https://raw.githubusercontent.com/kellenproctor/foundation/mast
 printf " "
 DramaticTyping "Casks..." 0.1
 PunnyCheck CASKS "TAPPED AND FLOWING!" "not yet delivered" "OK to move ahead without casks?"
-
-# Get twirl
-eval "$(curl -s https://raw.githubusercontent.com/kellenproctor/foundation/master/twirl)"
 
 if [ -v "$e_lemon_ated" ]; then
 	printf "\n "
@@ -224,11 +223,6 @@ fi
 ###############################################################################
 chapter "Updating Homebrew formulae…"
 brew update -fv
-brew bundle install -v 2>&1
-exit_code=$?
-if [ $exit_code -ne 0 ]; then
-	print_warning "Skipping forward"
-fi
 
 ###############################################################################
 # INSTALL: brews
@@ -236,7 +230,7 @@ fi
 if [ -z "${BREWS}" ]; then
 	chapter "Installing Homebrew formulae…"
 
-	for brew in $(BREWS); do
+	for brew in ${BREWS[@]}; do
 		install_brews $brew
 	done
 fi
@@ -246,7 +240,7 @@ fi
 ###############################################################################
 chapter "Installing apps via Homebrew…"
 
-for cask in ${CASKS}; do
+for cask in ${CASKS[@]}; do
 	install_application_via_brew $cask
 done
 
@@ -262,7 +256,7 @@ fi
 if mas_setup; then
 	# Workaround for associative array in Bash 3
 	# https://stackoverflow.com/questions/6047648/bash-4-associative-arrays-error-declare-a-invalid-option
-	for app in ${APPS}; do
+	for app in ${APPS[@]}; do
 		KEY="${app%%::*}"
 		VALUE="${app##*::}"
 		install_application_via_app_store $KEY $VALUE
